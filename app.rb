@@ -1,11 +1,10 @@
 require 'sinatra'
-require 'sinatra/respond_with'
 
 get '/' do
-  respond_with :index, :task => ''
+  haml :index, :locals => {:task => ''}
 end
 
-get '/task', :provides => [:html, :json] do
+get '/task' do
   #return good or bad task
   good = ["duolingo", "fuck", "kiss", "play", "Portal"]
   bad = ["clean something", "do sports", "eat apple", "do Uni", "call mum", "go to bed"]
@@ -19,5 +18,5 @@ get '/task', :provides => [:html, :json] do
      good.sample
     end
 
-    respond_with :index, :task => task
+    haml :index, :locals => {:task => task}
 end

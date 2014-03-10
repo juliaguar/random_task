@@ -1,7 +1,7 @@
 require 'sinatra'
 
 get '/' do
-  haml :index, :locals => {:task => ''}
+  haml :index, :locals => {:task => '', :bg_color => '#333'}
 end
 
 get '/task' do
@@ -12,11 +12,13 @@ get '/task' do
   good_probability = 20
   random_num = rand(100)
 
-  task = if random_num > good_probability
-      bad.sample
-    else
-     good.sample
-    end
+  if random_num > good_probability
+    task = bad.sample
+    bg_color = '#B32B2B'
+  else
+    task = good.sample
+    bg_color = '#228F22'
+  end
 
-    haml :index, :locals => {:task => task}
+    haml :index, :locals => {:task => task, :bg_color => bg_color}
 end

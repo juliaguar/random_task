@@ -5,7 +5,7 @@
 
   %body
     %span
-      Title
-
-    %button
-      press me
+      = task
+    %form(action='/task' method='GET')
+      %button(type='submit')
+        press me

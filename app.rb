@@ -1,10 +1,11 @@
 require 'sinatra'
+require 'sinatra/respond_with'
 
 get '/' do
-  haml :index
+  respond_with :index, :task => ''
 end
 
-get '/task' do
+get '/task', :provides => [:html, :json] do
   #return good or bad task
   good = ["duolingo", "fuck", "kiss", "play", "Portal"]
   bad = ["clean something", "do sports", "eat apple", "do Uni", "call mum"]
@@ -12,10 +13,11 @@ get '/task' do
   good_probability = 20
   random_num = rand(100)
 
-  if random_num > good_probability
-    bad.sample
-  else
-    good.sample
-  end
+  task = if random_num > good_probability
+      bad.sample
+    else
+     good.sample
+    end
 
+    respond_with :index, :task => task
 end

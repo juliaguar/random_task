@@ -2,10 +2,16 @@
 
 %html
   %head
-
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://getbootstrap.com/examples/cover/cover.css">
   %body
-    %span
-      = task
-    %form(action='/task' method='GET')
-      %button(type='submit')
-        press me
+    .site-wrapper
+      .site-wrapper-inner
+        .cover-container
+          .inner.cover
+            %h1.cover-heading
+              = task
+            %p.lead
+              %a.btn.btn-lg.btn-default{:href => "/task"} Press me!
+          .mastfoot
+            .inner

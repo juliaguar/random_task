@@ -1,0 +1,12 @@
+.background-wrapper {
+	background-image: url(http://farm8.staticflickr.com/7236/7304720350_0c64e0c6d6_h.jpg);
+	background-size: cover;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	-webkit-filter: blur(10px);
+  }
+
+  .site-wrapper {
+  	position: relative;
+  }

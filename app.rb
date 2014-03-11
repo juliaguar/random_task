@@ -1,5 +1,7 @@
 require 'sinatra'
 
+set :public_folder, File.dirname(__FILE__) + '/static'
+
 get '/' do
   haml :index, :locals => {:task => '', :bg_color => '#333'}
 end

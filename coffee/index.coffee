@@ -1,47 +1,30 @@
 $($ ->
     $body = $('body')
+    current_task = null
 
-    # Intensity should be a value between 0 and 1
-    setBackgroundBlur = (intensity) ->
+        # Intensity should be a value between 0 and 1
+    set_background_blur = (intensity) ->
         $('.background-wrapper')
-            .css('-webkit-filter', 'blur(' + Math.floor(intensity * 10) + 'px)')
-            .css('-webkit-transform', 'scale(' + (1 + intensity * 0.5) + ')')
+            .css('-webkit-filter', 'blur(' + (intensity * 10).toFixed(4) + 'px)')
+            .css('-webkit-transform', 'scale(' + (1 + intensity * 0.5).toFixed(4) + ')')
 
-    if window.DeviceOrientationEvent
-        # Devicemotion effects on the background if available
-        window.addEventListener('deviceorientation', 
-            (e) ->
-                setBackgroundBlur(e.alpha / 360)
-        )
-    # Mouse effects on the background 
-    # Problem if in any case devicemotion and mouse are available at the same time
-    $body.mousemove(
-        (e) -> 
-            width = $body.width()
-            height = $body.height()
-            distance_width = Math.abs(e.pageX - width/2) / width
-            distance_height = Math.abs(e.pageY - height/2) / height
-            distance = Math.sqrt(Math.pow(distance_height, 2) +  Math.pow(distance_width, 2))
-            setBackgroundBlur(distance)
-    )
-
-    task_countdown = 0 # in seconds
 
     update_countdown = () ->
-        $('#countdown').text(task_countdown + ' seconds')
-        if task_countdown > 0
-            task_countdown -= 1
+        $('#countdown').text(current_task.countdown + ' seconds')
+        set_background_blur(current_task.countdown / current_task.time)
+        if current_task.countdown > 0
+            current_task.countdown -= 1
             window.setTimeout(update_countdown, 1000)
         else 
             $('#taskbutton').show()
             $('#countdown').text('')
 
-
-
     handle_task = (task) ->
             $('#taskdisplay').text task.title
+            $('.background-wrapper').css('background-image', 'url(' + task.image + ')')
             $('#taskbutton').hide()
-            task_countdown = task.time
+            task.countdown = task.time
+            current_task = task
             update_countdown()
 
     $('#taskbutton').click(

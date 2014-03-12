@@ -1,12 +1,13 @@
 require 'sinatra'
+require 'json'
 
 set :public_folder, File.dirname(__FILE__) + '/static'
 
 get '/' do
-  haml :index, :locals => {:task => '', :bg_color => '#333'}
+  haml :index, :locals => {:task => '', :bg_color => '#333', :hide_button => false}
 end
 
-get '/task' do
+get '/task.?:format?' do |format|
   #return good or bad task
   good = ["duolingo", "fuck", "kiss", "play", "Portal"]
   bad = ["clean something", "do sports", "eat apple", "do Uni", "call mum", "go to bed"]
@@ -22,5 +23,9 @@ get '/task' do
     bg_color = '#228F22'
   end
 
-    haml :index, :locals => {:task => task, :bg_color => bg_color}
+  if format == 'json'
+    {:title => task, :time => 10}.to_json
+  else 
+    haml :index, :locals => {:task => task, :bg_color => bg_color, :hide_button => true}
+  end
 end

@@ -4,10 +4,10 @@
   %head
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="viewport" content="initial-scale=1,user-scalable=no">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/vendor/bootstrap.css">
     <link rel="stylesheet" href="http://getbootstrap.com/examples/cover/cover.css">
     <link rel="stylesheet" href="/css/index.css">
-    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="/js/vendor/jquery.js"></script>
     <script src="/js/index.js"></script>
   %body{:style=>"background-color: #{bg_color}"}
     .background-wrapper
@@ -15,9 +15,10 @@
       .site-wrapper-inner
         .cover-container
           .inner.cover
-            %h1.cover-heading
+            %h1.cover-heading#taskdisplay
               = task
             %p.lead
-              %a.btn.btn-lg.btn-default{:href => "/task"} Press me!
+              %a.btn.btn-lg.btn-default#taskbutton{:href => "/task"} Press me!
+              %span#countdown
           .mastfoot
             .inner

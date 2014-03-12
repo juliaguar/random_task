@@ -7,25 +7,21 @@
     setBackgroundBlur = function(intensity) {
       return $('.background-wrapper').css('-webkit-filter', 'blur(' + Math.floor(intensity * 10) + 'px)').css('-webkit-transform', 'scale(' + (1 + intensity * 0.5) + ')');
     };
-    if (window.DeviceMotionEvent) {
-      return window.addEventListener('devicemotion', function(ev) {
-        var acc;
-
-        acc = ev.accelerationIncludingGravity;
-        return setBackgroundBlur(acc.x / 10);
-      });
-    } else {
-      return $body.mousemove(function(e) {
-        var distance, distance_height, distance_width, height, width;
-
-        width = $body.width();
-        height = $body.height();
-        distance_width = Math.abs(e.pageX - width / 2) / width;
-        distance_height = Math.abs(e.pageY - height / 2) / height;
-        distance = Math.sqrt(Math.pow(distance_height, 2) + Math.pow(distance_width, 2));
-        return setBackgroundBlur(distance);
+    if (window.DeviceOrientationEvent) {
+      window.addEventListener('deviceorientation', function(ev) {
+        return setBackgroundBlur(ev.alpha / 360);
       });
     }
+    return $body.mousemove(function(e) {
+      var distance, distance_height, distance_width, height, width;
+
+      width = $body.width();
+      height = $body.height();
+      distance_width = Math.abs(e.pageX - width / 2) / width;
+      distance_height = Math.abs(e.pageY - height / 2) / height;
+      distance = Math.sqrt(Math.pow(distance_height, 2) + Math.pow(distance_width, 2));
+      return setBackgroundBlur(distance);
+    });
   }));
 
 }).call(this);

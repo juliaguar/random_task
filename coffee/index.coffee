@@ -5,6 +5,17 @@ $($ ->
     # ipad scroll fix
     $(document).bind 'touchmove', false;
 
+    save_task = (task) ->
+        localStorage.task = JSON.stringify(task)
+
+    check_load_task = () ->
+        if localStorage.task
+            task = JSON.parse(localStorage.task)
+            if task.target_time > Date.now()
+                handle_task task
+            else
+                localStorage.task = ''
+
     # Intensity should be a value between 0 and 1
     set_background_blur = (intensity) ->
         $('.background-wrapper')
@@ -34,8 +45,10 @@ $($ ->
             $('.background-wrapper').css('background-image', 'url(' + task.image.url + ')')
             $('#imagecredits').html(task.image.credits)
             $('#taskbutton').hide()
-            task.target_time = Date.now() + task.time * 1000
+            if not task.target_time
+                task.target_time = Date.now() + task.time * 1000
             current_task = task
+            save_task task
             update_countdown()
 
     $('#taskbutton').click(
@@ -45,4 +58,6 @@ $($ ->
                 handle_task task
             )
     )
+
+    check_load_task()
 )

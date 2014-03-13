@@ -1,0 +1,4 @@
+:development:
+  task_time: 10
+:production:
+  task_time: 1200

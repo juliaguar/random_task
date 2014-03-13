@@ -10,16 +10,17 @@ $($ ->
 
 
     update_countdown = () ->
-        $('#countdown').text(current_task.countdown + ' seconds')
+        $('#timer-countdown').text(current_task.countdown + ' seconds')
         set_background_blur(current_task.countdown / current_task.time)
         if current_task.countdown > 0
             current_task.countdown -= 1
             window.setTimeout(update_countdown, 1000)
         else 
             $('#taskbutton').show()
-            $('#countdown').text('')
+            $('#timer').hide()
 
     handle_task = (task) ->
+            $('#timer').show()
             $('#taskdisplay').text task.title
             $('.background-wrapper').css('background-image', 'url(' + task.image.url + ')')
             $('#imagecredits').html(task.image.credits)

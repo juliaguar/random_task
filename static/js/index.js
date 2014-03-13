@@ -9,17 +9,18 @@
       return $('.background-wrapper').css('-webkit-filter', 'blur(' + (intensity * 10).toFixed(4) + 'px)').css('-webkit-transform', 'scale(' + (1 + intensity * 0.5).toFixed(4) + ')');
     };
     update_countdown = function() {
-      $('#countdown').text(current_task.countdown + ' seconds');
+      $('#timer-countdown').text(current_task.countdown + ' seconds');
       set_background_blur(current_task.countdown / current_task.time);
       if (current_task.countdown > 0) {
         current_task.countdown -= 1;
         return window.setTimeout(update_countdown, 1000);
       } else {
         $('#taskbutton').show();
-        return $('#countdown').text('');
+        return $('#timer').hide();
       }
     };
     handle_task = function(task) {
+      $('#timer').show();
       $('#taskdisplay').text(task.title);
       $('.background-wrapper').css('background-image', 'url(' + task.image.url + ')');
       $('#imagecredits').html(task.image.credits);

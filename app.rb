@@ -2,29 +2,20 @@ require './lib/randomtasks.rb'
 
 require 'sinatra'
 require 'json'
+require 'yaml'
 
 set :public_folder, File.dirname(__FILE__) + '/static'
+images = YAML::load_file('config/images.yml')
+tasks = YAML::load_file('config/tasks.yml')
 
 get '/' do
-  image = RandomTasks::BackgroundImage::random
+  image = RandomTasks::BackgroundImage::from_hash(images.sample)
   haml :index, :locals => {:task => nil, :image => image}
 end
 
 get '/task.?:format?' do |format|
-  #return good or bad task
-  good = ["duolingo", "fuck", "kiss", "play", "Portal"]
-  bad = ["clean something", "do sports", "eat apple", "do Uni", "call mum", "go to bed"]
-
-  good_probability = 20
-  random_num = rand(100)  
-
-  task = if random_num > good_probability
-    RandomTasks::Task.new(bad.sample, false, 10)
-  else
-    RandomTasks::Task.new(good.sample, true, 6)
-  end
-
-  task.image = RandomTasks::BackgroundImage::random
+  task = RandomTasks::Task::from_hash(tasks.sample)
+  task.image = RandomTasks::BackgroundImage::from_hash(images.sample)
 
   if format == 'json'
     content_type :json

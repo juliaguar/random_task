@@ -54,7 +54,7 @@ module RandomTasks
 			images << BackgroundImage::new('http://farm5.staticflickr.com/4089/5191751684_f6d177b2a0_o.jpg', halfrain_credits)
 			images << BackgroundImage::new('http://farm5.staticflickr.com/4084/5033107024_b2307df42b_o.jpg', halfrain_credits)
 
-			cobaltfish_credits = '<a href="http://creativecommons.org/licenses/by-sa/2.0/" title="Attribution-ShareAlike License">cc-by-sa</a> by <a href="http://www.flickr.com/photos/cobaltfish/">halfrain</a>'
+			cobaltfish_credits = '<a href="http://creativecommons.org/licenses/by-sa/2.0/" title="Attribution-ShareAlike License">cc-by-sa</a> by <a href="http://www.flickr.com/photos/cobaltfish/">cobaltfish</a>'
 			images << BackgroundImage::new('http://farm8.staticflickr.com/7236/7304720350_0c64e0c6d6_h.jpg', cobaltfish_credits)
 
 			BackgroundImages::new(images)

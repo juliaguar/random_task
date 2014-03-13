@@ -6,7 +6,8 @@ require 'json'
 set :public_folder, File.dirname(__FILE__) + '/static'
 
 get '/' do
-  haml :index, :locals => {:task => nil}
+  image = RandomTasks::BackgroundImage::random
+  haml :index, :locals => {:task => nil, :image => image}
 end
 
 get '/task.?:format?' do |format|
@@ -29,6 +30,6 @@ get '/task.?:format?' do |format|
     content_type :json
     task.to_json
   else 
-    haml :index, :locals => {:task => task}
+    haml :index, :locals => {:task => task, :image => task.image}
   end
 end

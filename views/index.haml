@@ -10,7 +10,7 @@
     <script src="/js/vendor/jquery.js"></script>
     <script src="/js/index.js"></script>
   %body
-    .background-wrapper
+    .background-wrapper{ :style => "background-image: url(#{image.url})" }
     .site-wrapper
       .site-wrapper-inner
         .cover-container
@@ -25,4 +25,5 @@
             %br
             %span.glyphicon.glyphicon-camera
             %span#imagecredits
+              = image.credits if image
             .inner

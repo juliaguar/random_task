@@ -36,6 +36,7 @@ $($ ->
         if seconds_left > 0
             window.setTimeout(update_countdown, 100)
         else 
+            $('#bell').get(0).play();
             $('#taskbutton').show()
             $('#timer').hide()
 

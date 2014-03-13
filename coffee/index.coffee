@@ -2,7 +2,10 @@ $($ ->
     $body = $('body')
     current_task = null
 
-        # Intensity should be a value between 0 and 1
+    # ipad scroll fix
+    $(document).bind 'touchmove', false;
+
+    # Intensity should be a value between 0 and 1
     set_background_blur = (intensity) ->
         $('.background-wrapper')
             .css('-webkit-filter', 'blur(' + (intensity * 10).toFixed(4) + 'px)')

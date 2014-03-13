@@ -5,6 +5,7 @@
 
     $body = $('body');
     current_task = null;
+    $(document).bind('touchmove', false);
     set_background_blur = function(intensity) {
       return $('.background-wrapper').css('-webkit-filter', 'blur(' + (intensity * 10).toFixed(4) + 'px)').css('-webkit-transform', 'scale(' + (1 + intensity * 0.5).toFixed(4) + ')');
     };

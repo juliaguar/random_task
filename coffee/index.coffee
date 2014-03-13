@@ -11,13 +11,19 @@ $($ ->
             .css('-webkit-filter', 'blur(' + (intensity * 10).toFixed(4) + 'px)')
             .css('-webkit-transform', 'scale(' + (1 + intensity * 0.5).toFixed(4) + ')')
 
+    format_time = (total_seconds) ->
+        seconds = total_seconds % 60
+        minutes = Math.floor(total_seconds / 60)
+        seconds = '0' + seconds if seconds < 10
+        minutes = '0' + minutes if minutes < 10
+        "#{minutes}:#{seconds}"
 
     update_countdown = () ->
-        $('#timer-countdown').text(current_task.countdown + ' seconds')
-        set_background_blur(current_task.countdown / current_task.time)
-        if current_task.countdown > 0
-            current_task.countdown -= 1
-            window.setTimeout(update_countdown, 1000)
+        seconds_left = Math.round((current_task.target_time - Date.now()) / 1000)
+        $('#timer-countdown').text format_time(seconds_left)
+        set_background_blur(seconds_left / current_task.time)
+        if seconds_left > 0
+            window.setTimeout(update_countdown, 100)
         else 
             $('#taskbutton').show()
             $('#timer').hide()
@@ -28,7 +34,7 @@ $($ ->
             $('.background-wrapper').css('background-image', 'url(' + task.image.url + ')')
             $('#imagecredits').html(task.image.credits)
             $('#taskbutton').hide()
-            task.countdown = task.time
+            task.target_time = Date.now() + task.time * 1000
             current_task = task
             update_countdown()
 

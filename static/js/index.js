@@ -21,7 +21,8 @@
     };
     handle_task = function(task) {
       $('#taskdisplay').text(task.title);
-      $('.background-wrapper').css('background-image', 'url(' + task.image + ')');
+      $('.background-wrapper').css('background-image', 'url(' + task.image.url + ')');
+      $('#imagecredits').html(task.image.credits);
       $('#taskbutton').hide();
       task.countdown = task.time;
       current_task = task;

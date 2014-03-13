@@ -13,3 +13,13 @@ body {
 .site-wrapper {
 	position: relative;
 }
+
+.mastfoot > a {
+	color: rgba(255,255,255,.5);
+	-webkit-transition: color 0.5s;
+	transition: color 0.5s;
+}
+.mastfoot > a:hover {
+	color: rgba(255,255,255,.9);
+	text-decoration: none;
+}

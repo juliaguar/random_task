@@ -2,9 +2,6 @@ $($ ->
     $body = $('body')
     current_task = null
 
-    $('#share').share();
-
-
     # ipad scroll fix
     $(document).bind 'touchmove', false;
 
@@ -64,4 +61,9 @@ $($ ->
     )
 
     check_load_task()
+    share_options =
+        color: 'rgba(255,255,255,0.9)'
+        text_font: false
+        background: 'rgba(255,255,255,0.0)'
+    $('.share').share share_options
 )

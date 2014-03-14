@@ -9,7 +9,9 @@
     <link rel="stylesheet" href="/css/vendor/cover.css">
     <link rel="stylesheet" href="/css/index.css">
     <script src="/js/vendor/jquery.js"></script>
+    <script src="/js/vendor/share.min.js"></script>
     <script src="/js/index.js"></script>
+
   %body
     %audio#bell{:src => "/sound/bell.wav", :preload => "auto"}
     .background-wrapper{ :style => "background-image: url(#{image.url})" }
@@ -25,7 +27,7 @@
                 %span.glyphicon.glyphicon-time
                 %span#timer-countdown
           .mastfoot
-            %a{:href => "https://github.com/juliaguar/random_task", :target => "_blank"} 
+            %a{:href => "https://github.com/juliaguar/random_task", :target => "_blank"}
               with <span class="glyphicon glyphicon-heart-empty"></span> from berlin
             %br
             %span.glyphicon.glyphicon-camera
@@ -33,3 +35,4 @@
               = image.credits if image
             %span <span class="glyphicon glyphicon-bell"></span> <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank">cc-by</a> by <a href="http://www.freesound.org/people/gabstero/" target="_blank">gabstero</a>
             .inner
+      %div#share

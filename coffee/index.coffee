@@ -2,6 +2,9 @@ $($ ->
     $body = $('body')
     current_task = null
 
+    $('#share').share();
+
+
     # ipad scroll fix
     $(document).bind 'touchmove', false;
 
@@ -35,7 +38,7 @@ $($ ->
         set_background_blur(seconds_left / current_task.time)
         if seconds_left > 0
             window.setTimeout(update_countdown, 100)
-        else 
+        else
             $('#bell').get(0).play();
             $('#taskbutton').show()
             $('#timer').hide()

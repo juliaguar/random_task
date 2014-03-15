@@ -13,8 +13,8 @@ body {
 	position: relative;
 }
 
-.mastfoot a {
-	color: rgba(255,255,255,.5);
+.mastfoot, .mastfoot a {
+	color: rgba(255,255,255,.7);
 	-webkit-transition: color 0.5s;
 	transition: color 0.5s;
 }
@@ -25,4 +25,12 @@ body {
 
 #timer {
 	display: none;
+}
+
+[class*=entypo-]:before {
+	font-family: entypo,sans-serif;
+}
+
+.biggericon {
+	font-size: 1.2em;
 }

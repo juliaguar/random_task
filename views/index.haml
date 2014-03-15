@@ -5,6 +5,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="viewport" content="initial-scale=1,user-scalable=no">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="http://weloveiconfonts.com/api/?family=entypo">
     <link rel="stylesheet" href="/css/vendor/bootstrap.css">
     <link rel="stylesheet" href="/css/vendor/cover.css">
     <link rel="stylesheet" href="/css/index.css">
@@ -24,15 +25,16 @@
             %p.lead
               %a.btn.btn-lg.btn-default#taskbutton{:href => "/task"} Press me!
               %span#timer
-                %span.glyphicon.glyphicon-time
+                %span.entypo-clock
                 %span#timer-countdown
           .mastfoot
             .inner
               %span.share
               %a{:href => "https://github.com/juliaguar/random_task", :target => "_blank"}
-                with <span class="glyphicon glyphicon-heart-empty"></span> from berlin
+                with <span class="entypo-heart-empty biggericon"></span> from berlin
               %br
-              %span.glyphicon.glyphicon-camera
+              %span.entypo-camera.biggericon
               %span#imagecredits
                 = image.credits if image
-              %span <span class="glyphicon glyphicon-bell"></span> <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank">cc-by</a> by <a href="http://www.freesound.org/people/gabstero/" target="_blank">gabstero</a>
+              %span <span class="entypo-dot"></span> <span class="entypo-note biggericon"></span>  <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank"><span class="entypo-cc"></span><span class="entypo-cc-by"></span> <a href="http://www.freesound.org/people/gabstero/" target="_blank">gabstero</a>
+              %span <span class="entypo-dot"></span>   <span class="entypo-check biggericon"></span>  <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank"><span class="entypo-cc"></span><span class="entypo-cc-by"><span class="entypo-cc-sa"></span> <a href="http://www.entypo.com/" target="_blank">daniel bruce</a></span> 

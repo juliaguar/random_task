@@ -74,7 +74,8 @@
     share_options = {
       color: 'rgba(255,255,255,0.9)',
       text_font: false,
-      background: 'rgba(255,255,255,0.0)'
+      background: 'rgba(255,255,255,0.0)',
+      icon: 'paper-plane'
     };
     return $('.share').share(share_options);
   }));

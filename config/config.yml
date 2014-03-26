@@ -1,4 +1,6 @@
 :development:
   task_time: 10
+  db_uri: 'mongodb://localhost/randomtasks'
 :production:
   task_time: 1200
+  db_uri: <%= ENV['MONGOHQ_URL'] %>

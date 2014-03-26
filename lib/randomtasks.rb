@@ -69,21 +69,65 @@ module RandomTasks
 	end
 
 	class BackgroundImage
-		attr_accessor :url, :credits
+		attr_accessor :url, :license, :author_name, :author_url
 
 		@@collection_name = 'images'
 
-		def initialize(url, credits)
+		def initialize(url, license, author_name, author_url)
 			@url = url
-			@credits = credits
+			@license = license
+			@author_name = author_name
+			@author_url = author_url
 		end
 
 		def to_json(options = {})
-			{:url => @url, :credits => @credits}.to_json(options)
+			{
+				:url => @url, 
+				:license => @license,
+				:author_name => @author_name,
+				:author_url => @author_url
+			}.to_json(options)
 		end
 
 		def self.from_hash(image)
-			self::new(image['url'], image['credits'])
+    		license = License.new(image['license_id'])
+			self::new(
+				image['url'],
+				license,
+				image['author_name'], 
+				image['author_url']
+			)
+		end
+	end
+
+	class License
+		attr_accessor :url, :name, :shortcut
+
+		def initialize(id)
+			license = @@licenses[id.to_i]
+			@url = license['url']
+			@name = license['name']
+			@shortcut = license['shortcut']
+		end
+
+		def html_string
+			shorts = @shortcut.split('-')
+			html_string = ''
+			if shorts[0] == 'cc'
+				html_string = "<span class='entypo-cc'></span>"
+				shorts.drop(1).each do |short|
+					html_string << "<span class='entypo-cc-#{short}'></span>"
+				end
+			end
+			html_string
+		end
+
+		def to_json(options = {})
+			{:url => @url, :html_string => self.html_string}.to_json(options)
+		end
+
+		def self.set_licenses(licenses_hash)
+			@@licenses = licenses_hash
 		end
 	end
 end

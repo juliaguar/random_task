@@ -35,6 +35,9 @@
               %br
               %span.entypo-camera.biggericon
               %span#imagecredits
-                = image.credits if image
+                %a#imagelicense{:href => image.license.url, :target => '_blank'}
+                  = image.license.html_string
+                %a#imageauthor{:href => image.author_url, :target => 'blank'}
+                  = image.author_name
               %span <span class="entypo-dot"></span> <span class="entypo-note biggericon"></span>  <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank"><span class="entypo-cc"></span><span class="entypo-cc-by"></span> <a href="http://www.freesound.org/people/gabstero/" target="_blank">gabstero</a>
               %span <span class="entypo-dot"></span>   <span class="entypo-check biggericon"></span>  <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank"><span class="entypo-cc"></span><span class="entypo-cc-by"><span class="entypo-cc-sa"></span> <a href="http://www.entypo.com/" target="_blank">daniel bruce</a></span> 

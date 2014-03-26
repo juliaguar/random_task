@@ -6,6 +6,8 @@ require 'yaml'
 
 set :public_folder, File.dirname(__FILE__) + '/static'
 config = YAML::load_file('config/config.yml')[settings.environment]
+licenses = YAML::load_file('config/licenses.yml')
+RandomTasks::License::set_licenses(licenses)
 storage = RandomTasks::Storage.new(config['db_uri'])
 RandomTasks::Collection::set_storage(storage)
 background_images = RandomTasks::Collection.new(RandomTasks::BackgroundImage, 'images')

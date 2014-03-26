@@ -55,7 +55,8 @@
       $('#timer').show();
       $('#taskdisplay').text(task.title);
       $('.background-wrapper').css('background-image', 'url(' + task.image.url + ')');
-      $('#imagecredits').html(task.image.credits);
+      $('#imagelicense').html(task.image.license.html_string).attr('href', task.image.license.url);
+      $('#imageauthor').text(task.image.author_name).attr('href', task.image.author_url);
       $('#taskbutton').hide();
       if (!task.target_time) {
         task.target_time = Date.now() + task.time * 1000;

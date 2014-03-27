@@ -1,18 +1,18 @@
 $($ ->
-    $body = $('body')
     current_task = null
 
     # ipad scroll fix
     $(document).bind 'touchmove', false;
 
-    save_task = (task) ->
-        localStorage.task = JSON.stringify(task)
+    save_task = ->
+        localStorage.task = JSON.stringify(current_task)
 
     check_load_task = () ->
         if localStorage.task
             task = JSON.parse(localStorage.task)
             if task.target_time > Date.now()
-                handle_task task
+                current_task = task
+                continue_task()
             else
                 localStorage.task = ''
 
@@ -29,7 +29,7 @@ $($ ->
         minutes = '0' + minutes if minutes < 10
         "#{minutes}:#{seconds}"
 
-    update_countdown = () ->
+    update_countdown = ->
         seconds_left = Math.round((current_task.target_time - Date.now()) / 1000)
         $('#timer-countdown').text format_time(seconds_left)
         set_background_blur(seconds_left / current_task.time)
@@ -37,31 +37,61 @@ $($ ->
             window.setTimeout(update_countdown, 100)
         else
             $('#bell').get(0).play();
-            $('#taskbutton').show()
+            $('#taskbutton')
+                .show()
+                .text('Another one?')
             $('#timer').hide()
 
-    handle_task = (task) ->
-            $('#timer').show()
-            $('#taskdisplay').text task.title
-            $('.background-wrapper').css('background-image', 'url(' + task.image.url + ')')
-            $('#imagelicense').html(task.image.license.html_string).attr('href', task.image.license.url)
-            $('#imageauthor').text(task.image.author_name).attr('href', task.image.author_url)
-            $('#taskbutton').hide()
-            if not task.target_time
-                task.target_time = Date.now() + task.time * 1000
-            current_task = task
-            save_task task
-            update_countdown()
+    start_task = ->
+        $('#timer').show()
+        if not current_task.target_time
+            current_task.target_time = Date.now() + current_task.time * 1000
+        save_task()
+        update_countdown()
+
+    continue_task = ->
+        display_task()
+        $('#timer').show()
+        $('#taskbutton').hide()
+        update_countdown()
+
+    ready_task = ->
+        $('#taskbutton').hide()
+        $('#starttaskbutton').show()
+        $('#taskdisplay').text current_task.title
+
+
+    display_task = ->
+        $('#taskdisplay').text current_task.title
+        $('.background-wrapper').css('background-image', 'url(' + current_task.image.url + ')')
+        $('#imagelicense')
+            .html(current_task.image.license.html_string)
+            .attr('href', current_task.image.license.url)
+        $('#imageauthor')
+            .text(current_task.image.author_name)
+            .attr('href', current_task.image.author_url)
+
 
     $('#taskbutton').click(
         (e) ->
             e.preventDefault()
             $.getJSON('/task.json', (task) ->
-                handle_task task
+                current_task = task
+                display_task()
+                ready_task()
             )
     )
 
+    $('#starttaskbutton').click(
+        (e) ->
+            e.preventDefault()
+            $('#starttaskbutton').hide()
+            start_task()
+    )
+
     check_load_task()
+
+    # Share Button Plugin
     share_options =
         color: 'rgba(255,255,255,0.9)'
         text_font: false

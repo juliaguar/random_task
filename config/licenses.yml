@@ -1,10 +1,8 @@
 4:
   url: 'http://creativecommons.org/licenses/by/2.0/'
   shortcut: 'cc-by'
-  icons: '<span class="entypo-cc"></span><span class="entypo-cc-by"></span>'
-  name: 'Attribution License'
+  name: 'Createive Commons Attribution License'
 5:
   url: "https://creativecommons.org/licenses/by-sa/2.0/"
   shortcut: 'cc-by-sa'
-  icons: '<span class="entypo-cc"></span><span class="entypo-cc-by"></span>><span class="entypo-cc-sa"></span>'
-  name: 'Attribution-ShareAlike License'
+  name: 'Createive Commons Attribution-ShareAlike License'

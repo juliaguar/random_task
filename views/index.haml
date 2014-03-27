@@ -24,6 +24,7 @@
               = task.title if task
             %p.lead
               %a.btn.btn-lg.btn-default#taskbutton{:href => "/task"} Press me!
+              %a.btn.btn-lg.btn-success#starttaskbutton{:href => "#", :style => "display:none;"} Let's do this!
               %span#timer
                 %span.entypo-clock
                 %span#timer-countdown

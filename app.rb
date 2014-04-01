@@ -6,6 +6,11 @@ require 'yaml'
 
 set :public_folder, File.dirname(__FILE__) + '/static'
 config = YAML::load_file('config/config.yml')[settings.environment]
+config['db_uri'] = if settings.environment == :production then
+	ENV['MONGOHQ_URL']
+else
+	'mongodb://localhost/randomtasks'
+end
 licenses = YAML::load_file('config/licenses.yml')
 RandomTasks::License::set_licenses(licenses)
 storage = RandomTasks::Storage.new(config['db_uri'])

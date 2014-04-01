@@ -15,18 +15,14 @@ tasks = RandomTasks::Collection.new(RandomTasks::Task, 'tasks')
 
 get '/' do
   image = background_images.get_random
-  haml :index, :locals => {:task => nil, :image => image}
+  haml :index, :locals => {:image => image}
 end
 
-get '/task.?:format?' do |format|
+get '/task.json' do
   task = tasks.get_random
   task.image = background_images.get_random
   task.time = config['task_time']
 
-  if format == 'json'
-    content_type :json
-    task.to_json
-  else 
-    haml :index, :locals => {:task => task, :image => task.image}
-  end
+  content_type :json
+  task.to_json
 end

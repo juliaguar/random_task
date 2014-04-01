@@ -58,9 +58,6 @@ $($ ->
 
     # Start the countdown of the task
     start_task = ->
-        $('#taskdisplay')
-            .removeAttr('contenteditable')
-            .blur()
         $('#timer').show()
         if not current_task.target_time
             current_task.target_time = Date.now() + current_task.time * 1000
@@ -105,6 +102,11 @@ $($ ->
         $('#starttaskbutton').attr('disabled', 'disabled')
         display_image current_task.image # The images should probably be seperate to the tasks
 
+    end_write_task = ->
+        $('#taskdisplay')
+            .removeAttr('contenteditable')
+            .blur()
+        current_task.title = $('#taskdisplay').text()
 
     $('#randomtaskbutton').click(
         (e) ->
@@ -126,6 +128,7 @@ $($ ->
     $('#starttaskbutton').click(
         (e) ->
             e.preventDefault()
+            end_write_task()
             $('#starttaskbutton').hide()
             start_task()
             load_next_task()
@@ -141,6 +144,7 @@ $($ ->
                 if e.which == 13
                     if not $('#taskdisplay').is(':empty')
                         $('#starttaskbutton').hide()
+                        end_write_task()
                         start_task()
                         load_next_task()
                     false

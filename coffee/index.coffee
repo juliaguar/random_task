@@ -139,9 +139,10 @@ $($ ->
         .keypress(
             (e) ->
                 if e.which == 13
-                    $('#starttaskbutton').hide()
-                    start_task()
-                    load_next_task()
+                    if not $('#taskdisplay').is(':empty')
+                        $('#starttaskbutton').hide()
+                        start_task()
+                        load_next_task()
                     false
         )
         .focusout(

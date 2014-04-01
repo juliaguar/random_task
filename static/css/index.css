@@ -34,3 +34,7 @@ body {
 .biggericon {
 	font-size: 1.2em;
 }
+
+#taskdisplay:focus {
+	outline: none;
+}

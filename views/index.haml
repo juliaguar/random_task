@@ -21,9 +21,10 @@
         .cover-container
           .inner.cover
             %h1.cover-heading#taskdisplay
-              = task.title if task
+              Random task or pick your own?
             %p.lead
-              %a.btn.btn-lg.btn-default#taskbutton{:href => "/task"} Press me!
+              %a.btn.btn-lg.btn-success.entypo-shuffle#randomtaskbutton{:href => "#"} 
+              %a.btn.btn-lg.btn-default.entypo-pencil#writetaskbutton{:href => "#"}
               %a.btn.btn-lg.btn-success#starttaskbutton{:href => "#", :style => "display:none;"} Let's do this!
               %span#timer
                 %span.entypo-clock

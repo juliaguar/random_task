@@ -52,13 +52,15 @@ $($ ->
             window.setTimeout(update_countdown, 100)
         else
             $('#bell').get(0).play();
-            $('#taskbutton')
-                .show()
-                .text('Another one?')
+            $('#randomtaskbutton').show()
+            $('#writetaskbutton').show()
             $('#timer').hide()
 
     # Start the countdown of the task
     start_task = ->
+        $('#taskdisplay')
+            .removeAttr('contenteditable')
+            .blur()
         $('#timer').show()
         if not current_task.target_time
             current_task.target_time = Date.now() + current_task.time * 1000
@@ -69,34 +71,57 @@ $($ ->
     continue_task = ->
         display_task()
         $('#timer').show()
-        $('#taskbutton').hide()
+        $('#randomtaskbutton').hide()
+        $('#writetaskbutton').hide()
         update_countdown()
 
     # Switch to the ready state
     ready_task = ->
-        $('#taskbutton').hide()
+        $('#randomtaskbutton').hide()
+        $('#writetaskbutton').hide()
         $('#starttaskbutton').show()
+
+    # Display an image from the object data
+    display_image = (image) ->
+        $('.background-wrapper').css('background-image', 'url(' + image.url + ')')
+        $('#imagelicense')
+            .html(image.license.html_string)
+            .attr('href', image.license.url)
+        $('#imageauthor')
+            .text(image.author_name)
+            .attr('href', image.author_url)    
 
 
     # Display the current_task
     display_task = ->
         $('#taskdisplay').text current_task.title
-        $('.background-wrapper').css('background-image', 'url(' + current_task.image.url + ')')
-        $('#imagelicense')
-            .html(current_task.image.license.html_string)
-            .attr('href', current_task.image.license.url)
-        $('#imageauthor')
-            .text(current_task.image.author_name)
-            .attr('href', current_task.image.author_url)
+        display_image current_task.image
+
+    write_task = ->
+        $('#taskdisplay')
+            .attr('contenteditable', 'true')
+            .text('')
+            .focus()
+        $('#starttaskbutton').attr('disabled', 'disabled')
+        display_image current_task.image # The images should probably be seperate to the tasks
 
 
-    $('#taskbutton').click(
+    $('#randomtaskbutton').click(
         (e) ->
             e.preventDefault()
             current_task = next_task
             display_task()
             ready_task()
     )
+
+    $('#writetaskbutton').click(
+        (e) ->
+            e.preventDefault()
+            current_task = next_task
+            write_task()
+            ready_task()
+    )
+
 
     $('#starttaskbutton').click(
         (e) ->
@@ -105,6 +130,24 @@ $($ ->
             start_task()
             load_next_task()
     )
+
+    $('#taskdisplay')
+        .on('input',
+            (e) ->
+                $('#starttaskbutton').removeAttr('disabled')
+        )
+        .keypress(
+            (e) ->
+                if e.which == 13
+                    $('#starttaskbutton').hide()
+                    start_task()
+                    load_next_task()
+                    false
+        )
+        .focusout(
+            (e) ->
+                $(this).focus()
+        )
 
     load_saved_task()
     load_next_task()

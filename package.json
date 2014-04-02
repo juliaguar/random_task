@@ -21,6 +21,7 @@
     "gulp-concat": "~2.2.0",
     "gulp-uglify": "~0.2.1",
     "coffee-script": "~1.7.1",
-    "gulp-minify-css": "~0.3.0"
+    "gulp-minify-css": "~0.3.0",
+    "gulp-coffeelint": "^0.3.2"
   }
 }
